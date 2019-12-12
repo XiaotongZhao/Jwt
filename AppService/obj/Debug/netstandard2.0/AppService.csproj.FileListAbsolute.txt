@@ -1,0 +1,13 @@
+L:\My project\Jwt\AppService\bin\Debug\netstandard2.0\AppService.deps.json
+L:\My project\Jwt\AppService\bin\Debug\netstandard2.0\AppService.dll
+L:\My project\Jwt\AppService\bin\Debug\netstandard2.0\AppService.pdb
+L:\My project\Jwt\AppService\bin\Debug\netstandard2.0\Domain.dll
+L:\My project\Jwt\AppService\bin\Debug\netstandard2.0\Infrastructure.Common.dll
+L:\My project\Jwt\AppService\bin\Debug\netstandard2.0\Domain.pdb
+L:\My project\Jwt\AppService\bin\Debug\netstandard2.0\Infrastructure.Common.pdb
+L:\My project\Jwt\AppService\obj\Debug\netstandard2.0\AppService.csprojAssemblyReference.cache
+L:\My project\Jwt\AppService\obj\Debug\netstandard2.0\AppService.AssemblyInfoInputs.cache
+L:\My project\Jwt\AppService\obj\Debug\netstandard2.0\AppService.AssemblyInfo.cs
+L:\My project\Jwt\AppService\obj\Debug\netstandard2.0\AppService.csproj.CopyComplete
+L:\My project\Jwt\AppService\obj\Debug\netstandard2.0\AppService.dll
+L:\My project\Jwt\AppService\obj\Debug\netstandard2.0\AppService.pdb

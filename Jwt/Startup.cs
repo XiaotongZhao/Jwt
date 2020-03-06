@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Infrastructure.IoC.IoC;
+using Jwt.FilterAttribute;
+using Serilog;
 
 namespace Jwt
 {
@@ -24,7 +26,7 @@ namespace Jwt
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers(option => option.Filters.Add(typeof(HttpGlobalExceptionFilter)));
             services.AddOpenApiDocument();
 
             var secretKey = Encoding.ASCII.GetBytes(Configuration.GetSection("TokenManagement:Secret").Value);
@@ -55,6 +57,7 @@ namespace Jwt
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSerilogRequestLogging();
             app.UseCors(x => x
             .AllowAnyOrigin()
             .AllowAnyMethod()

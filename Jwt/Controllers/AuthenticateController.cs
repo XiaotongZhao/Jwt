@@ -1,4 +1,7 @@
-﻿using AppService.AuthorizationAppService;
+﻿using System.Collections.Generic;
+using AppService.UserAppService;
+using AppService.AuthorizationAppService;
+using AppService.UserAppService.ViewModel;
 using Infrastructure.Common.Token;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,13 +11,22 @@ namespace Jwt.Controllers
     [Route("[controller]")]
     public class AuthenticateController : ControllerBase
     {
+        private readonly IUserAppService userAppService;
         private readonly IAuthorizationAppService authService;
 
-        public AuthenticateController(IAuthorizationAppService authService)
+        public AuthenticateController(IUserAppService userAppService, IAuthorizationAppService authService)
         {
             this.authService = authService;
+            this.userAppService = userAppService;
         }
-        [HttpPost, Route("request")]
+
+        [HttpGet, Route("GetUsers")]
+        public List<UserViewModel> GetUsers()
+        {
+            return userAppService.GetUsers();
+        }
+
+        [HttpPost, Route("Request")]
         public IActionResult RequestToken(TokenRequest request)
         {
             var result = authService.IsAuthenticated(request);

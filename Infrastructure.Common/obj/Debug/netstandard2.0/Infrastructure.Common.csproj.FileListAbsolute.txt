@@ -1,8 +1,0 @@
-L:\My project\Jwt\Infrastructure.Common\bin\Debug\netstandard2.0\Infrastructure.Common.deps.json
-L:\My project\Jwt\Infrastructure.Common\bin\Debug\netstandard2.0\Infrastructure.Common.dll
-L:\My project\Jwt\Infrastructure.Common\bin\Debug\netstandard2.0\Infrastructure.Common.pdb
-L:\My project\Jwt\Infrastructure.Common\obj\Debug\netstandard2.0\Infrastructure.Common.AssemblyInfoInputs.cache
-L:\My project\Jwt\Infrastructure.Common\obj\Debug\netstandard2.0\Infrastructure.Common.AssemblyInfo.cs
-L:\My project\Jwt\Infrastructure.Common\obj\Debug\netstandard2.0\Infrastructure.Common.dll
-L:\My project\Jwt\Infrastructure.Common\obj\Debug\netstandard2.0\Infrastructure.Common.pdb
-L:\My project\Jwt\Infrastructure.Common\obj\Debug\netstandard2.0\Infrastructure.Common.csprojAssemblyReference.cache

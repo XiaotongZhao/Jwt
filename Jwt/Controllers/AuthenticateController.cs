@@ -33,7 +33,7 @@ namespace Jwt.Controllers
             var result = authService.IsAuthenticated(request);
             if (result.Success)
             {
-                return Ok(result.Token);
+                return Ok(result);
             }
 
             return BadRequest("Invalid Request");

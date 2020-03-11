@@ -32,7 +32,7 @@ namespace Domain.Authorization.service
                 expires: DateTime.Now.AddMinutes(_tokenManagement.AccessExpiration),
                 signingCredentials: credentials
             );
-            return new TokenResult() { Success = true, Token = new JwtSecurityTokenHandler().WriteToken(jwtToken) };
+            return new TokenResult() { Success = true, Id = 1, UserName = request.Username, Token = new JwtSecurityTokenHandler().WriteToken(jwtToken) };
         }
     }
 }

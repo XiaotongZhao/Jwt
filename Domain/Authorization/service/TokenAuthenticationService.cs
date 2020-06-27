@@ -29,7 +29,7 @@ namespace Domain.Authorization.service
                 _tokenManagement.Issuer,
                 _tokenManagement.Audience,
                 claim,
-                expires: DateTime.Now.AddMinutes(_tokenManagement.AccessExpiration),
+                expires: DateTime.Now.AddHours(_tokenManagement.AccessExpiration),
                 signingCredentials: credentials
             );
             return new TokenResult() { Success = true, Id = 1, UserName = request.Username, Token = new JwtSecurityTokenHandler().WriteToken(jwtToken) };

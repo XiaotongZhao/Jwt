@@ -10,6 +10,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Infrastructure.IoC.IoC;
 using Jwt.FilterAttribute;
 using Serilog;
+using Hangfire;
+using Hangfire.MySql;
+using System.Transactions;
+using Jwt.Middleware;
 
 namespace Jwt
 {
@@ -25,6 +29,25 @@ namespace Jwt
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseStorage(new MySqlStorage(
+                    Configuration.GetConnectionString("HanfireConnection"),
+                    new MySqlStorageOptions
+                    {
+                        TransactionIsolationLevel = IsolationLevel.ReadCommitted,
+                        QueuePollInterval = TimeSpan.FromSeconds(15),
+                        JobExpirationCheckInterval = TimeSpan.FromHours(1),
+                        CountersAggregateInterval = TimeSpan.FromMinutes(5),
+                        PrepareSchemaIfNecessary = true,
+                        DashboardJobListLimit = 50000,
+                        TransactionTimeout = TimeSpan.FromMinutes(1),
+                        TablesPrefix = "Hangfire"
+                    }
+                )));
+            services.AddHangfireServer();
             services.AddCors();
             services.AddControllers(option => option.Filters.Add(typeof(HttpGlobalExceptionFilter)));
             services.AddOpenApiDocument();
@@ -47,6 +70,8 @@ namespace Jwt
                     ValidateAudience = false
                 };
             });
+            services.AddConsulConfig(Configuration);
+
             return IoCConfig.ImplementDI(services, Configuration);
         }
 
@@ -57,11 +82,12 @@ namespace Jwt
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseSerilogRequestLogging();
             app.UseCors(x => x
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -69,14 +95,16 @@ namespace Jwt
             app.UseAuthentication();
 
             app.UseAuthorization();
-
+            app.UseHangfireDashboard();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHangfireDashboard();
             });
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
+            app.UseConsul("https://localhost", "5080");
         }
     }
 }
